@@ -43,7 +43,6 @@ public class FirstSeleniumTest {
     @Test
     public void registerNewUser(){
         String userdata = "vipan@gmail.com";
-        String test = "123";
         driver.findElement(By.id("login-form")).isDisplayed();
         driver.findElement(By.cssSelector("[href=\"/user/registration\"]")).click();
         driver.findElement(By.id("registration-form")).isDisplayed();
