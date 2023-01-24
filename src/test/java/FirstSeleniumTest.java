@@ -32,9 +32,6 @@ public class FirstSeleniumTest {
 
     }
 
-
-    //test
-
     @Test
     public void loginWithValidData(){
         driver.findElement(By.xpath("//*[@id=\"defaultRegisterFormEmail\"]")).sendKeys("test@gmail.com");
@@ -46,6 +43,7 @@ public class FirstSeleniumTest {
     @Test
     public void registerNewUser(){
         String userdata = "vipan@gmail.com";
+        String test = "123";
         driver.findElement(By.id("login-form")).isDisplayed();
         driver.findElement(By.cssSelector("[href=\"/user/registration\"]")).click();
         driver.findElement(By.id("registration-form")).isDisplayed();
