@@ -1,5 +1,6 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
@@ -12,12 +13,12 @@ public class TestBase {
     WebDriver driver;
 
     @BeforeClass
-    public static void setUp(){
+    public static void setUp() {
         WebDriverManager.chromedriver().setup();
     }
 
     @BeforeMethod
-    public void setupTest(){
+    public void setupTest() {
         driver = new ChromeDriver();
         driver.get("http://phonebook.telran-edu.de:8080/");
         driver.manage().window().maximize();
@@ -28,10 +29,31 @@ public class TestBase {
         driver.findElement(locator).click();
         driver.findElement(locator).sendKeys(userData);
     }
+
+    public boolean isElementPresent(By by) {
+        try {
+            driver.findElement(by);
+            return true;
+        } catch (NoSuchElementException exception) {
+            exception.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean isElementClickable(By by) {
+        try {
+            driver.findElement(by).click();
+            return true;
+        } catch (NoSuchElementException exception) {
+            exception.printStackTrace();
+            return false;
+        }
+    }
+
     @AfterMethod
     public void tearDown() throws InterruptedException {
         Thread.sleep(1000);
-        if(driver!= null){
+        if (driver != null) {
             driver.quit();
         }
     }
