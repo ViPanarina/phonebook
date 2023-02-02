@@ -3,6 +3,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -30,6 +31,11 @@ public class TestBase {
         driver.findElement(locator).sendKeys(userData);
     }
 
+    public void fillPhoneNumber(String editedPhoneNumber, By locator) {
+        driver.findElement(locator).click();
+        driver.findElement(locator).sendKeys(editedPhoneNumber);
+    }
+
     public boolean isElementPresent(By by) {
         try {
             driver.findElement(by);
@@ -48,6 +54,11 @@ public class TestBase {
             exception.printStackTrace();
             return false;
         }
+    }
+
+    void checkItemText(By locator, String expectedText, String err) {
+        String actualErrorMessage = driver.findElement(locator).getText();
+        Assert.assertEquals(actualErrorMessage, expectedText, "err");
     }
 
     @AfterMethod
