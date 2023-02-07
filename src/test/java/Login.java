@@ -22,6 +22,5 @@ public class Login extends TestBase {
 
         Assert.assertTrue(isElementPresent(constantsTable));
     }
-
-
+    
 }
