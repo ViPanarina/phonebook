@@ -22,7 +22,9 @@ public class CreateContactTest extends ChangeLanguage {
     }
 
     ;
-    static By contactButton = By.cssSelector("[href=\"/contacts\"]");
+
+    String expectedErrMsgWithVoid = "Contact save fail";
+    By contactButton = By.cssSelector("[href=\"/contacts\"]");
     By dialogWindow = By.xpath("//*[@role='dialog']");
     By newContactFirstName = By.id("form-name");
     By newContactLastName = By.id("form-lastName");
@@ -67,6 +69,29 @@ public class CreateContactTest extends ChangeLanguage {
         checkItemText(filledContactDescription, description, "Actual description name is not equal expected description");
     }
 
+    private void goToContactPageAndFillFilterField(String firstName) {
+        driver.findElement(By.xpath("//a[@class='navbar-brand']//*[name()='svg']")).click();
+        //Filler by creation name
+        fillField(firstName, searchInput);
+    }
+
+    private void fillAddContactFieldWithVoid(String voidFirstName, String lastName, String description) {
+        fillField(voidFirstName, newContactFirstName);
+        fillField(lastName, newContactLastName);
+        fillField(description, newContactDescription);
+    }
+
+    ;
+
+    private void saveInvalidContactWithVoidFirstName() {
+        driver.findElement(saveNewContactButton).click();
+    }
+
+    private void checkErrorMessage(By locator, String expectedErrMsgWithVoid) {
+        String err = "Actual error message isn't equal expected ";
+        checkItemText(By.id("pop-up-error-add-contact"), expectedErrMsgWithVoid, err);
+    }
+    
     @Test(dataProvider = "newContact")
     public void createNewContact(String firstName, String lastName, String description) throws InterruptedException {
         // for (int i = 0; i < 3; i++) {
@@ -88,10 +113,15 @@ public class CreateContactTest extends ChangeLanguage {
         //Expected result: Created contact show with correct data in the contact table
     }
 
-    private void goToContactPageAndFillFilterField(String firstName) {
-        driver.findElement(By.xpath("//a[@class='navbar-brand']//*[name()='svg']")).click();
-        //Filler by creation name
-        fillField(firstName, searchInput);
+    //negative tests
+    @Test
+    public void createUserWithInvalidSymbol() {
+        String voidFirstName = " ";
+        String lastName = faker.internet().uuid();
+        String description = faker.internet().uuid();
+        openAddContactDialog();
+        fillAddContactFieldWithVoid(voidFirstName, lastName, description);
+        saveInvalidContactWithVoidFirstName();
+        checkErrorMessage(By.id("pop-up-error-add-contact"), expectedErrMsgWithVoid);
     }
-
 }
