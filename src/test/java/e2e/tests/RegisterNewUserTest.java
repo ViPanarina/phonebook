@@ -1,4 +1,7 @@
+package e2e.tests;
+
 import com.github.javafaker.Faker;
+import e2e.TestBase;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -81,7 +84,7 @@ public class RegisterNewUserTest extends TestBase {
         //Arrange
         String userData = "test@gmail.com";
         String passwordData = "test@gmail.com";
-        String expectedErrorMessage = "Error! User already exists Login now?";
+        String expectedErrorMessage = "Error! User already exists e2e.Login now?";
         //Act
         goToRegistrationPage();
         fillRegistrationForm(userData, passwordData);

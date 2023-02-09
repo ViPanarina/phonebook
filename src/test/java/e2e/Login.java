@@ -1,3 +1,5 @@
+package e2e;
+
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -22,5 +24,5 @@ public class Login extends TestBase {
 
         Assert.assertTrue(isElementPresent(constantsTable));
     }
-    
+
 }

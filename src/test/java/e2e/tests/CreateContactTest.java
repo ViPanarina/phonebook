@@ -1,4 +1,7 @@
+package e2e.tests;
+
 import com.github.javafaker.Faker;
+import e2e.MainPage;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -8,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class CreateContactTest extends ChangeLanguage {
+public class CreateContactTest extends MainPage {
 
     Faker faker = new Faker();
 
@@ -91,7 +94,7 @@ public class CreateContactTest extends ChangeLanguage {
         String err = "Actual error message isn't equal expected ";
         checkItemText(By.id("pop-up-error-add-contact"), expectedErrMsgWithVoid, err);
     }
-    
+
     @Test(dataProvider = "newContact")
     public void createNewContact(String firstName, String lastName, String description) throws InterruptedException {
         // for (int i = 0; i < 3; i++) {

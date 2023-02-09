@@ -1,4 +1,7 @@
+package e2e.tests;
+
 import com.github.javafaker.Faker;
+import e2e.Login;
 import org.openqa.selenium.By;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

@@ -1,3 +1,5 @@
+package e2e.tests;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,12 +20,12 @@ public class FirstSeleniumTest {
     //before - работает до запуска теста (предустановка)
 
     @BeforeClass
-    public static void setUp(){
+    public static void setUp() {
         WebDriverManager.chromedriver().setup();
     }
 
     @BeforeMethod
-    public void setupTest(){
+    public void setupTest() {
         driver = new ChromeDriver();
         driver.get("http://phonebook.telran-edu.de:8080/");
         //  driver.navigate().to("https://www.google.ru/");
@@ -33,15 +35,16 @@ public class FirstSeleniumTest {
     }
 
     @Test
-    public void loginWithValidData(){
+    public void loginWithValidData() {
         driver.findElement(By.xpath("//*[@id=\"defaultRegisterFormEmail\"]")).sendKeys("test@gmail.com");
         driver.findElement(By.xpath("//input[@placeholder=\"Password\"]")).sendKeys("test@gmail.com");
         //driver.findElement(By.cssSelector("[placeholder=\"Password\"]")).sendKeys("test@gmail.com");
-        driver.findElement(By.xpath("//button[contains(text(), 'Login')]")).click();
+        driver.findElement(By.xpath("//button[contains(text(), 'e2e.Login')]")).click();
         driver.findElement(By.cssSelector(".btn.btn-info")).click();
     }
+
     @Test
-    public void registerNewUser(){
+    public void registerNewUser() {
         String userdata = "vipan@gmail.com";
         driver.findElement(By.id("login-form")).isDisplayed();
         driver.findElement(By.cssSelector("[href=\"/user/registration\"]")).click();
@@ -62,7 +65,7 @@ public class FirstSeleniumTest {
     @AfterMethod
     public void tearDown() throws InterruptedException {
         Thread.sleep(1000);
-        if(driver!= null){
+        if (driver != null) {
             driver.quit();
         }
     }//
