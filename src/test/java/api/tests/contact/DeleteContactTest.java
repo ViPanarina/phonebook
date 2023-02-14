@@ -12,10 +12,10 @@ import java.util.Random;
 
 public class DeleteContactTest extends ApiBase {
     int id;
+    int wrongId;
     Response response;
     ContactDto contactDto;
 
-    String errorMessage = "Error! This contact doesn't exist in our DB";
 
     @BeforeMethod
     public void precondition() {
@@ -33,8 +33,10 @@ public class DeleteContactTest extends ApiBase {
     @Test(groups = ("negative"))
     public void deleteContactWithoutId() {
         Random rnd = new Random();
-        int wrongId = 100000 + rnd.nextInt(900000);
+        wrongId = 100000 + rnd.nextInt(900000);
         response = doDeleteRequest(EndPoint.DELETE_CONTACT, 500, wrongId);
-        Assert.assertEquals(response.jsonPath().getString("message"), errorMessage);
+        Assert.assertEquals(response.jsonPath().getString("message"), ERROR_MESSAGE);
     }
+
+
 }

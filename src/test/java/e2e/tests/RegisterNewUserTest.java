@@ -2,49 +2,12 @@ package e2e.tests;
 
 import com.github.javafaker.Faker;
 import e2e.TestBase;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class RegisterNewUserTest extends TestBase {
-
-
-    By loginForm = By.id("login-form");
-    By userRegistrationLink = By.cssSelector("[href=\"/user/registration\"]");
-    By registrationForm = By.id("registration-form");
-    By emailField = By.cssSelector("[placeholder=\"Email\"]");
-    By passwordField = By.cssSelector("[placeholder=\"Password\"]");
-    By confirmPasswordField = By.name("confirm-password");
-    By loginButton = By.xpath("//*[@type=\"submit\"]");
-    By errorMessageBlock = By.id("error-message");
-    By errorEmailMessageBlock = By.id("email-error-invalid");
-    By errorPasswordMaxLengthMessageBlock = By.id("password-error-maxlength");
     Faker faker = new Faker();
-
-
-    private void fillRegistrationForm(String userData, String passwordData) {
-        fillField(userData, emailField);
-        fillField(passwordData, passwordField);
-        fillField(passwordData, confirmPasswordField);
-    }
-
-    private void goToRegistrationPage() {
-        Assert.assertTrue(isElementPresent(loginForm));
-        driver.findElement(userRegistrationLink).click();
-        Assert.assertTrue(isElementPresent(registrationForm));
-    }
-
-    private void clickSignUpButton() {
-        driver.findElement(loginButton).click();
-        driver.findElement(loginButton).isEnabled();
-    }
-
-    private void checkErrorMessage(By locator, String expectedErrorMessage) {
-        String err = "Actual error message isn't equal expected ";
-        checkItemText(locator, expectedErrorMessage, err);
-    }
-
-
+    
     @Test
     public void registerNewUserWithValidData() {
         //Arrange
@@ -52,11 +15,11 @@ public class RegisterNewUserTest extends TestBase {
         String passwordData = faker.internet().password();
         String expectedErrorMessage = "noErrorMsg";
         //Act
-        goToRegistrationPage();
-        fillRegistrationForm(userData, passwordData);
-        clickSignUpButton();
+        app.getRegister().goToRegistrationPage();
+        app.getRegister().fillRegistrationForm(userData, passwordData);
+        app.getRegister().clickSignUpButton();
         //Assert
-        checkErrorMessage(errorMessageBlock, expectedErrorMessage);
+        app.getRegister().checkErrorMessage(app.getRegister().errorMessageBlock, expectedErrorMessage);
     }
 
 
@@ -70,13 +33,12 @@ public class RegisterNewUserTest extends TestBase {
         String expectedEmailErrorMessage = "Email must be a valid email address.";
         String expectedPasswordErrorMessage = "Password must be no longer than 20 characters.";
         //Act
-        goToRegistrationPage();
-        fillRegistrationForm(userData, passwordData);
-        Assert.assertFalse(isElementPresent(errorMessageBlock));
+        app.getRegister().goToRegistrationPage();
+        app.getRegister().fillRegistrationForm(userData, passwordData);
+        Assert.assertFalse(app.getRegister().isElementPresent(app.getRegister().errorMessageBlock));
         //Assert
-        checkErrorMessage(errorEmailMessageBlock, expectedEmailErrorMessage);
-        checkErrorMessage(errorPasswordMaxLengthMessageBlock, expectedPasswordErrorMessage);
-
+        app.getRegister().checkErrorMessage(app.getRegister().errorEmailMessageBlock, expectedEmailErrorMessage);
+        app.getRegister().checkErrorMessage(app.getRegister().errorPasswordMaxLengthMessageBlock, expectedPasswordErrorMessage);
     }
 
     @Test
@@ -86,13 +48,11 @@ public class RegisterNewUserTest extends TestBase {
         String passwordData = "test@gmail.com";
         String expectedErrorMessage = "Error! User already exists e2e.Login now?";
         //Act
-        goToRegistrationPage();
-        fillRegistrationForm(userData, passwordData);
-        clickSignUpButton();
+        app.getRegister().goToRegistrationPage();
+        app.getRegister().fillRegistrationForm(userData, passwordData);
+        app.getRegister().clickSignUpButton();
         //Assert
-        checkErrorMessage(errorMessageBlock, expectedErrorMessage);
+        app.getRegister().checkErrorMessage(app.getRegister().errorMessageBlock, expectedErrorMessage);
     }
-
-
 }
 

@@ -10,12 +10,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class ContactDto {
+public class UpdateContactDTO {
     int id;
     String firstName;
     String lastName;
     String description;
-
 
 }
