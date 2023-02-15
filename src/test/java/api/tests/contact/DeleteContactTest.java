@@ -1,7 +1,7 @@
 package api.tests.contact;
 
 import api.enums.EndPoint;
-import api.model.ContactDto;
+import api.model.contact.ContactDto;
 import api.tests.ApiBase;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -17,12 +17,11 @@ public class DeleteContactTest extends ApiBase {
     ContactDto contactDto;
 
 
-    @BeforeMethod
+    @BeforeMethod(groups = ("positive"))
     public void precondition() {
         contactDto = createContact();
         response = doPostRequest(EndPoint.ADD_NEW_CONTACT, 201, contactDto);
         id = response.jsonPath().getInt("id");
-
     }
 
     @Test(groups = ("positive"))
