@@ -2,6 +2,7 @@ package e2e.tests;
 
 import com.github.javafaker.Faker;
 import e2e.TestBase;
+import e2e.helpers.EditContactHelpers;
 import org.testng.annotations.Test;
 
 public class CommonContactTest extends TestBase {
@@ -21,7 +22,7 @@ public class CommonContactTest extends TestBase {
         app.getCreateContact().saveNewContact();
         app.getCreateContact().checkFieldsOnContactInfo(firstName, lastName, description);
 
-        //String newFirstName = faker.internet().uuid();
+        String newFirstName = faker.internet().uuid();
         String newLastName = faker.internet().uuid();
         String newDescription = faker.lorem().paragraph(1);
 
@@ -29,10 +30,14 @@ public class CommonContactTest extends TestBase {
         app.getEditContact().checkCountRows(expectedCountRow);
         app.getEditContact().openContact();
         app.getEditContact().openEditForm();
-        app.getEditContact().editeLastNameAndDescription(newLastName, newDescription);
+        app.getEditContact().editContactInfoForm(newFirstName, newLastName, newDescription);
         app.getEditContact().saveEditedContact();
-        app.getEditContact().checkFieldsOnContactInfo(firstName, newLastName, newDescription);
+        app.getEditContact().checkFieldsOnContactInfo(newFirstName, newLastName, newDescription);
+
+        EditContactHelpers getRemoveContact = app.getEditContact();
+        getRemoveContact.goToContactPageAndFillFilterField(newFirstName);
+        getRemoveContact.openRemoveContactDialog();
+        getRemoveContact.removeContact();
+        getRemoveContact.checkCountRows(0);
     }
-
-
 }

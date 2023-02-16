@@ -1,5 +1,6 @@
 package e2e.helpers;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class EditContactHelpers extends ContactHelpers {
@@ -20,5 +21,8 @@ public class EditContactHelpers extends ContactHelpers {
         clickOnVisibleElement(buttonSubmitEdition);
     }
 
-
+    public void editContactInfoForm(String firstName, String lastName, String description) {
+        fillField(firstName, (By.name("input-ec-firstName")));
+        editeLastNameAndDescription(lastName, description);
+    }
 }

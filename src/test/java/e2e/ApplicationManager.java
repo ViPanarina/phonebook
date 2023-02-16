@@ -54,9 +54,7 @@ public class ApplicationManager {
     }
 
     protected void stop() {
-        if (driver != null) {
-            driver.quit();
-        }
+        driver.quit();
     }
 
     public String takeScreenshot() throws IOException {

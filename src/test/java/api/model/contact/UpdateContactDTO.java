@@ -1,4 +1,4 @@
-package api.model;
+package api.model.contact;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
