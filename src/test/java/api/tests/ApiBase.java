@@ -25,6 +25,7 @@ public class ApiBase {
             .addHeader("Access-Token", API_KEY)
             .build();
 
+
     public Response doPostRequest(EndPoint endPoint, Integer responseCode, Object dto) {
         Response resp = RestAssured.given()
                 .spec(spec)
