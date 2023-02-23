@@ -6,17 +6,22 @@ import e2e.utils.DataProviders;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
+import java.awt.*;
+import java.io.IOException;
+
 public class CreateContactTest extends TestBase {
 
     Faker faker = new Faker();
 
     @Test(dataProvider = "newContact", dataProviderClass = DataProviders.class)
-    public void createNewContact(String firstName, String lastName, String description) throws InterruptedException {
+    public void createNewContact(String firstName, String lastName, String description) throws InterruptedException, IOException, AWTException {
         // for (int i = 0; i < 3; i++) {
         //String firstName = faker.internet().uuid();
         //String lastName = faker.internet().uuid();
         //String description = faker.internet().uuid();
         Number expectedCountRow = 1;
+
+        app.getRegister().startRecording();
         app.getLogin().login();
         app.getCreateContact().changeLanguage();
         String firstAndLastName = firstName + lastName;
@@ -28,14 +33,16 @@ public class CreateContactTest extends TestBase {
         app.getCreateContact().checkFieldsOnContactInfo(firstName, lastName, description);
         app.getCreateContact().goToContactPageAndFillFilterField(firstName);
         app.getCreateContact().checkCountRows(expectedCountRow);
+        app.getRegister().stopRecording();
         //}
         //Expected result: Created contact show with correct data in the contact table
     }
 
     @Test(dataProvider = "newContactWithCSV", dataProviderClass = DataProviders.class)
-    public void createNewContactDataProviderWithFileCSV(String firstName, String lastName, String description) throws InterruptedException {
+    public void createNewContactDataProviderWithFileCSV(String firstName, String lastName, String description) throws InterruptedException, IOException, AWTException {
         Number expectedCountRow = 1;
         String firstAndLastName = firstName + lastName;
+        app.getRegister().startRecording();
         app.getLogin().login();
         app.getCreateContact().changeLanguage();
         app.getCreateContact().openAddNewContactDialog();
@@ -44,6 +51,7 @@ public class CreateContactTest extends TestBase {
         app.getCreateContact().checkFieldsOnContactInfo(firstName, lastName, description);
         app.getCreateContact().goToContactPageAndFillFilterField(firstName);
         app.getCreateContact().checkCountRows(expectedCountRow);
+        app.getRegister().stopRecording();
     }
 
     //negative tests

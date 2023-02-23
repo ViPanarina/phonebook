@@ -6,6 +6,9 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.awt.*;
+import java.io.IOException;
+
 public class RegisterNewUserTest extends TestBase {
     Faker faker = new Faker();
 
@@ -27,19 +30,22 @@ public class RegisterNewUserTest extends TestBase {
     //--------- Negative test
 
     @Test
-    public void registerNewUserWithInvalidData() {
+    public void registerNewUserWithInvalidData() throws IOException, AWTException {
         //Arrange
         String userData = faker.internet().password();
         String passwordData = faker.internet().emailAddress();
         String expectedEmailErrorMessage = "Email must be a valid email address.";
         String expectedPasswordErrorMessage = "Password must be no longer than 20 characters.";
         //Act
+        app.getRegister().deleteFiles("records");
+        app.getRegister().startRecording();
         app.getRegister().goToRegistrationPage();
         app.getRegister().fillRegistrationForm(userData, passwordData);
         Assert.assertFalse(app.getRegister().isElementPresent(app.getRegister().errorMessageBlock));
         //Assert
         app.getRegister().checkErrorMessage(app.getRegister().errorEmailMessageBlock, expectedEmailErrorMessage);
         app.getRegister().checkErrorMessage(app.getRegister().errorPasswordMaxLengthMessageBlock, expectedPasswordErrorMessage);
+        app.getRegister().stopRecording();
     }
 
     @Test

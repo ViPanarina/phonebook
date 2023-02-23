@@ -40,7 +40,7 @@ public class TestBase {
     @AfterMethod
     public void stopTest(ITestResult result) throws IOException {
         if (result.isSuccess()) {
-            logger.info("PASSED" + result.getMethod().getMethodName());
+            logger.info("PASSED" + result.getMethod().getMethodName() + app.getRegister().deleteFiles("records"));
         } else {
             logger.info("FAILED" + result.getMethod().getMethodName() + "Screenshot path: " + app.takeScreenshot());
         }

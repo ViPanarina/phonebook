@@ -19,7 +19,7 @@ public class LoginHelpers extends CommonHelpers {
     public void login() {
         String username = "test@gmail.com";
         String password = "test@gmail.com";
-        driver.findElement(loginForm).isDisplayed();
+        Assert.assertTrue(isElementPresent(loginForm));
         fillField(username, emailField);
         fillField(password, passwordField);
         driver.findElement(loginButton).click();
