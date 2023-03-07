@@ -35,6 +35,8 @@ public class CommonHelpers {
         return wait;
     }
 
+
+
     public void startRecording() throws IOException, AWTException {
         File file = new File("records");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
