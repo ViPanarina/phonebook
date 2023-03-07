@@ -7,9 +7,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import java.time.Duration;
+
 public class CommonHelpers {
     WebDriver driver;
     public WebDriverWait wait;
+
 
     public CommonHelpers(WebDriver driver) {
         this.driver = driver;
