@@ -26,6 +26,8 @@ public class CommonHelpers {
     public ScreenRecorder screenRecorder;
     Duration TIMEOUT = Duration.ofSeconds(10);
 
+
+
     public CommonHelpers(WebDriver driver) {
         this.driver = driver;
     }
